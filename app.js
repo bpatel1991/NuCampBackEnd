@@ -10,6 +10,24 @@ const campsiteRouter = require('./routes/campsiteRouter');
 const promotionRouter = require('./routes/promotionRouter');
 const partnerRouter = require('./routes/partnerRouter');
 
+//require mongoose module here//
+const mongoose = require('mongoose');
+
+//url for mongoDB server//
+const url = 'mongodb://localhost:27017/nucampsite';
+
+//set up connection, add url and ways to handle deprecation warnings seen before //
+const connect = mongoose.connect(url, {
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useNewUrlParser: true, 
+  useUnifiedTopology: true
+});
+
+//handle promise returned by connect method here. If connection to server succeeds, this message is console.logged. If error, console log the error.//
+connect.then(() => console.log('Connected correctly to server'), 
+    err => console.log(err)
+);
 
 var app = express();
 
