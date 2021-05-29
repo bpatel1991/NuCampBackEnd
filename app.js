@@ -59,7 +59,7 @@ function auth (req, res, next) {
   console.log(req.session);
   
   
-  if (!req.sessoion.user) {
+  if (!req.session.user) {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       const err = new Error ('You are not authenticated!');
@@ -74,21 +74,21 @@ function auth (req, res, next) {
     if (user === 'admin' && pass === 'password') {
       req.session.user = 'admin';
       return next(); // authorized
-    } else {
-        const err = new Error('You are not authenticated!');
-        res.setHeader('WWW-Authenticate', 'Basic');      
-        err.status = 401;
-        return next(err);
-    }
   } else {
-    if (req.session.user === 'admin') {
-      return next();
-    } else {
-        const err = new Error('You are not authenticated!');
-        err.status = 401;
-        return next(err);
-    }
+      const err = new Error('You are not authenticated!');
+      res.setHeader('WWW-Authenticate', 'Basic');
+      err.status = 401;
+      return next(err);
   }
+} else {
+  if (req.session.user === 'admin') {
+      return next();
+  } else {
+      const err = new Error('You are not authenticated!');
+      err.status = 401;
+      return next(err);
+  }
+}
 }
 
 app.use(auth);
