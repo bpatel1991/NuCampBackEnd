@@ -1,6 +1,6 @@
 const express = require('express');
 const Promotion = require('../models/promotion');
-const authenticate = require('../authenticate');
+const authenticate = require('../authenticate')
 const promotionRouter = express.Router();
 
 promotionRouter.route('/')
@@ -27,7 +27,7 @@ promotionRouter.route('/')
     res.statusCode = 403;
     res.end('PUT operation not supported on /promotions');
 })
-.delete(authenticate.verifyUser, (req, res, next) => {
+.delete((req, res, next) => {
     Promotion.deleteMany()
     .then(response => {
         res.statusCode = 200;
@@ -73,4 +73,4 @@ promotionRouter.route('/:promotionId')
     .catch(err => next(err));
 });
 
-module.exports = promotionRouter
+module.exports = promotionRouter;

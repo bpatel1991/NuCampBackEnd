@@ -42,16 +42,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //app.use(cookieParser('12345-67890-09876-54321')); muted out b/c can't use express sessions with cookie parser b/c has its own code//
 
-app.use(session({
-  name: 'session-id',
-  secret: '12345-67890-09876-54321',
-  saveUninitialized: false, //when a new session is created but no updates are made to it, then at the end of the request it won't get saved b/c it will just be an empty session w/o any useful info; no cookie sent to client//
-  resave: false, //once the session has been created, updated, and saved, it will be continually resaved whenever a request is made for that session- keeps request marked as active so it doesn't get deleted//
-  store: new FileStore() //create an object to store session information to the server's hard disk//
-}));
+//app.use(session({
+  //name: 'session-id',
+  //secret: '12345-67890-09876-54321',
+  //saveUninitialized: false, //when a new session is created but no updates are made to it, then at the end of the request it won't get saved b/c it will just be an empty session w/o any useful info; no cookie sent to client//
+  //resave: false, //once the session has been created, updated, and saved, it will be continually resaved whenever a request is made for that session- keeps request marked as active so it doesn't get deleted//
+  //store: new FileStore() //create an object to store session information to the server's hard disk//
+//}));
 
 app.use(passport.initialize()); ///middleware function from passport//
-app.use(passport.session()); ///middleware function from passport//
+//app.use(passport.session()); ///middleware function from passport//
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
