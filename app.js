@@ -1,16 +1,9 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-const session = require('express-session');
-const FileStore = require('session-file-store')(session);
-//above- invoking require function with argument session file store//
-//require function returning another fxn as its return value, then immediately calling that return function with second parameter list of session//
-
 const passport = require('passport');
-const authenticate = require('./authenticate');
+const config = require('./config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -23,7 +16,7 @@ const mongoose = require('mongoose');
 const { read } = require('fs');
 
 //url for mongoDB server//
-const url = 'mongodb://localhost:27017/nucampsite';
+const url = config.mongoUrl;
 
 //set up connection, add url and ways to handle deprecation warnings seen before //
 const connect = mongoose.connect(url, {
