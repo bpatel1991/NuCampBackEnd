@@ -2,13 +2,19 @@ const express = require('express');
 const User = require('../models/user');
 const passport = require('passport');
 const authenticate = require('../authenticate');
-
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) { 
-  res.send('respond with a resource');
+router.get('/', authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+  User.find()
+  .then((users) => {
+    res.statusCode= 200;
+    res.json(users);
+    console.log(users)
+  })
 });
+
+
 
 //allows new user to register on website//
 router.post('/signup', (req, res) => {
